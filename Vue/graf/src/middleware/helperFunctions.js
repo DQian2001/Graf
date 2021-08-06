@@ -116,7 +116,6 @@ class grafhelpers {
     }
     
         BFS_maxFlow(selectedNodes, data) {
-        console.log("***** IN BFS_maxFlow *****");
         var queue = new Array();
         var visited = new Map();
         var start = {node: selectedNodes[0].index, path:[{id: selectedNodes[0].index}]};
@@ -141,14 +140,12 @@ class grafhelpers {
 
         var ret = [];
         if (!(visited.has(selectedNodes[1].index))) {
-            console.log( "NO PATH -- NOT REACHABLE" );
             return ret;
         }
         var result = visited.get(selectedNodes[1].index);
         for (let element in result) {
             ret.push(result[element].id);
         }
-        console.log(ret);
         return ret;
     }
 }
