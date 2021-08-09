@@ -20,6 +20,8 @@ class PathTools {
             this.shortestPath2(graf, selection);
         } else if(data.type === "scc"){
             this.strongyConnected(graf);
+        } else if(data.type === "flow") {
+            this.flowAlg(graf, selection, data.fun);
         }
     } 
     //deprecated
@@ -79,6 +81,19 @@ class PathTools {
         this.update_distances(graf, data, false);
         var data = alg(Array.from(selection.selectedNodes), graf.links);
         this.update_distances(graf, data, true);
+    }
+
+    flowAlg(graf, selection, alg) {
+        this.update_flow(graf, data, false);
+        var data = alg(Array.from(selection.selectedNodes), graf.links);
+        if (data == -1) {
+          alert("Maximum flow algorithm ABORTED!");
+          return;
+        }
+        var colored = this.update_flow(graf, data[0], true);
+        grafhelpers.color_graf(graf, 'red', 'node', colored[0]);
+        grafhelpers.color_graf(graf, 'red', 'edge', colored[1]);
+        alert("Maximum flow is " + data[1]);
     }
 
     match_ids_to_graf(graf, selection) {
