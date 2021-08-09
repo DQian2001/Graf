@@ -109,23 +109,34 @@ class PathTools {
       return matches;
     }
 
+
+
     update_distances(graf, data, type) {
+
+
       var sep = ":\n ";
+      var nodeList = " ";
       if(type) {
           data.forEach(function(value, key) {
               let index = graf.nodes.findIndex((node) => { return node.id === key });
+              nodeList = nodeList + graf.nodes[index].name + "\n";
               graf.nodes[index].name += sep + (value.length - 1);
-              console.log(index);
           });
-      } else {
+          alert("The traversal path is: \n" + nodeList);
+
+      } 
+
+      else {
           for(var node in graf.nodes) {
               var name = graf.nodes[node].name;
               if(name.indexOf(sep) > -1)
                   graf.nodes[node].name = name.slice(0, name.lastIndexOf(sep));
           }
       }
-    }
 
+
+
+    }
     update_flow(graf, data, type) {
       var sep = ":\n ";
       var colored_edges = new Set();
