@@ -100,10 +100,10 @@ export default{
         },
         "Algorithm" : {
           "bfs" : "Breadth First Search (BFS)",
-	  "dfs" : "Depth First Search (DFS)",
+	 "dfs" : "Depth First Search (DFS)",
 	  "dijkstra" : "Dijkstra",
           "kosaraju" : "Kosaraju's"
-	  "bellmanford" : "Bellman Ford",
+	 "bellmanford" : "Bellman Ford",
 	  "maxFlow" : "Maximum Flow"
         }
       },
