@@ -34,6 +34,58 @@ class helperAlgs {
     } 
 
 
+       /** 
+        @param: selectedNodes: an array of the source node for bfs traversal, links with all the source and target ids associated with an edge
+        @requires: selectedNodes and links must have values
+        @effects: none
+        @return: a map with the key entry corresponding to the node index in order of depth first traversal and the value is the path to the connected edges
+     */
+    dfs(selectedNodes, links) {
+
+        if (selectedNodes.length > 1) {
+            alert("You can only select one source traversal node.");
+            return;
+        }
+
+        //data contains sets corresponding to a node index and the node indexes it has an edge to
+        var data = grafhelpers.convertGrafData(links);
+        var queue = new Array();
+
+        //keeps track of node indices and associated paths
+        var visited = new Map();
+
+        //the node index and its path are stored in the first selected node
+        var start = {node: selectedNodes[0].index, path:[{id: selectedNodes[0].index}]};
+
+        queue.push(start);
+
+        while(queue.length > 0) {
+
+            var state = queue.pop();
+
+            for (var nodeName in queue) {
+                 console.log(nodeName);
+            }
+
+            if (!visited.has(state.node)) {
+                visited.set(state.node, state.path);
+            }
+
+            var fringe = data[state.node];
+            fringe.forEach(fNode => {
+                if (!(visited.has(fNode))) {
+                    var next_path = JSON.parse(JSON.stringify(state.path));
+                    next_path.push({id: fNode});
+                    queue.push({node: fNode, path: next_path});
+                }
+
+            });
+            visited.set(state.node, state.path);
+
+        }
+
+        return visited;
+    }
     //Dikstras that considers the edge weights in its pathing(I did not want to delete the old one)
     djikstra2(graf, start, end) {
         var queue = new Array();
@@ -183,39 +235,7 @@ class helperAlgs {
         }
     }
     
-    dfs(selectedNodes, links) {
-        var data = grafhelpers.convertGrafData(links);
-        var queue = new Array();
-        var visited = new Map();
-        var start = {node: selectedNodes[0].index, path:[{id: selectedNodes[0].index}]};
 
-        queue.push(start);
-
-        while(queue.length > 0) {
-            console.log("The queue contains: ");
-            for (var i = queue.length; i >= 0; i--) {
-                console.log(queue[i]);
-            }
-
-            var state = queue.pop();
-
-            var fringe = data[state.node];
-            fringe.forEach(fNode => {
-                if (!(visited.has(fNode))) {
-                    var next_path = JSON.parse(JSON.stringify(state.path));
-                    next_path.push({id: fNode});
-                    queue.push({node: fNode, path: next_path});
-                }
-
-            });
-            visited.set(state.node, state.path);
-        }
-
-        console.log("Graph data structure is...");
-        console.log(JSON.parse(JSON.stringify(data)));
-
-        return visited;
-    }
     
     bellmanford(selectedNodes, links){
         var data = grafhelpers.convertGrafData(links);
