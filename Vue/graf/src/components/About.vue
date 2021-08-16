@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="about-section">
-      <h1>About Us Page</h1>
+      <h1>About Us</h1>
       <p>We Make Graf</p>
     </div>
     <h2 style="text-align:center">Developers</h2>
